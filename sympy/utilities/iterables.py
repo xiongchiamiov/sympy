@@ -1,4 +1,5 @@
 from sympy.core import C
+from types import LambdaType
 
 #XXX: When we drop Python 2.4 support, replace minkey, iff, all, and any
 # with their builtin equivalents.
@@ -51,8 +52,7 @@ def iff(condition, result1, result2):
         rv = result1
     else:
         rv = result2
-    # XXX this is fragile; is there a better way to tell if it's a lambda?
-    if '<lambda>' in str(rv):
+    if isinstance(rv, LambdaType):
         return rv()
     else:
         return rv
